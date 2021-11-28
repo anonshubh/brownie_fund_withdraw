@@ -2,6 +2,7 @@ from eth_account import account
 from brownie import network, config, accounts, MockV3Aggregator
 from web3 import Web3
 
+FORKED_LOCAL_ENV = ["mainnet-fork"]
 LOCAL_BLOCKCHAIN_ENV = ["development","ganache-local"]
 
 DECIMALS = 8
@@ -9,7 +10,7 @@ STARTING_PRICE = 200000000000
 
 
 def get_account():
-    if network.show_active() in LOCAL_BLOCKCHAIN_ENV:
+    if (network.show_active() in LOCAL_BLOCKCHAIN_ENV) or (network.show_active() in FORKED_LOCAL_ENV):
         return accounts[0]
     return accounts.load("my-account")
 
